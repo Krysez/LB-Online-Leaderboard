@@ -14,8 +14,7 @@
       align-items: center;
       padding: 2rem;
     }
-    h1 {
-      font-size: 2rem;
+    h1, h2 {
       margin-bottom: 1rem;
     }
     table {
@@ -25,6 +24,7 @@
       background-color: #2b2b3c;
       border-radius: 8px;
       overflow: hidden;
+      margin-bottom: 2rem;
     }
     th, td {
       text-align: left;
@@ -40,6 +40,18 @@
     .rank-icon {
       font-size: 1.2rem;
     }
+    .season-box {
+      background-color: #252537;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 600px;
+    }
+    .season-box h3 {
+      margin-top: 0;
+      color: #ffd369;
+    }
   </style>
 </head>
 <body>
@@ -53,19 +65,30 @@
       </tr>
     </thead>
     <tbody>
-     {% for name, score in leaderboard %}
-  <tr>
-    <td class="rank-icon">
-      {% if loop.index == 1 %}🥇
-      {% elif loop.index == 2 %}🥈
-      {% elif loop.index == 3 %}🥉
-      {% else %}#{{ loop.index }}{% endif %}
-    </td>
-    <td>{{ name }}</td>
-    <td>{{ "{:,}".format(score) }}</td>
-  </tr>
-{% endfor %}
+      {% for name, score in leaderboard %}
+        <tr>
+          <td class="rank-icon">
+            {% if loop.index == 1 %}🥇{% elif loop.index == 2 %}🥈{% elif loop.index == 3 %}🥉{% else %}#{{ loop.index }}{% endif %}
+          </td>
+          <td>{{ name }}</td>
+          <td>{{ "{:,}".format(score) }}</td>
+        </tr>
+      {% endfor %}
     </tbody>
   </table>
+
+  {% if seasons %}
+    <h2>📦 Previous Seasons</h2>
+    {% for season in seasons %}
+      <div class="season-box">
+        <h3>Season {{ season.season }} — <em>{{ season.date }}</em></h3>
+        <ul>
+          {% for name, score in season.top %}
+            <li>{{ name }} – {{ "{:,}".format(score) }} points</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  {% endif %}
 </body>
 </html>
