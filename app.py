@@ -4,7 +4,6 @@ import os
 
 app = Flask(__name__, template_folder="templates")
 
-# Load data from contributions.json
 def load_contributions():
     try:
         with open("contributions.json", "r") as f:
@@ -23,4 +22,3 @@ def api_leaderboard():
     data = load_contributions()
     sorted_data = sorted(data.items(), key=lambda x: x[1], reverse=True)
     return jsonify(sorted_data)
-

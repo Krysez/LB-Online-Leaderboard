@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LoreBreaker Leaderboard</title>
+  <style>
+    body {
+      background-color: #1e1e2f;
+      color: #f8f8f8;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 600px;
+      background-color: #2b2b3c;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 16px;
+    }
+    th {
+      background-color: #3b3b4c;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #2f2f40;
+    }
+    .rank-icon {
+      font-size: 1.2rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>🏆 LoreBreaker Top Contributors 🏆</h1>
-  <ul>
-    {% for name, score in leaderboard %}
-      <li>{{ name }} – {{ "{:,}".format(score) }} points</li>
-    {% endfor %}
-  </ul>
+  <h1>🏆 LoreBreaker | Top Contributors 🏆</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, (name, score) in enumerate(leaderboard) %}
+        <tr>
+          <td class="rank-icon">
+            {% if index == 0 %}🥇{% elif index == 1 %}🥈{% elif index == 2 %}🥉{% else %}#{{ index + 1 }}{% endif %}
+          </td>
+          <td>{{ name }}</td>
+          <td>{{ "{:,}".format(score) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </body>
 </html>
