@@ -53,15 +53,18 @@
       </tr>
     </thead>
     <tbody>
-      {% for index, (name, score) in enumerate(leaderboard) %}
-        <tr>
-          <td class="rank-icon">
-            {% if index == 0 %}🥇{% elif index == 1 %}🥈{% elif index == 2 %}🥉{% else %}#{{ index + 1 }}{% endif %}
-          </td>
-          <td>{{ name }}</td>
-          <td>{{ "{:,}".format(score) }}</td>
-        </tr>
-      {% endfor %}
+     {% for name, score in leaderboard %}
+  <tr>
+    <td class="rank-icon">
+      {% if loop.index == 1 %}🥇
+      {% elif loop.index == 2 %}🥈
+      {% elif loop.index == 3 %}🥉
+      {% else %}#{{ loop.index }}{% endif %}
+    </td>
+    <td>{{ name }}</td>
+    <td>{{ "{:,}".format(score) }}</td>
+  </tr>
+{% endfor %}
     </tbody>
   </table>
 </body>
